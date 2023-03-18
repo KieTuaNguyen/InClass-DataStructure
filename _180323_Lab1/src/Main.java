@@ -19,6 +19,5 @@ public class Main {
         System.out.println("Stack size: " + stack.size());
         System.out.println("The stack includes: " + stack.toString());
         System.out.println("---");
-
     }
 }

@@ -10,7 +10,7 @@ public class Stack<E> implements AbstractStack<E> {
     private int size;
 
     public Stack() {
-        this.elements = (E[]) new Object[10];
+        this.elements = (E[]) new Object[999];
     }
 
     @Override
