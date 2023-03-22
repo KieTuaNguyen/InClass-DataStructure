@@ -8,9 +8,10 @@ public class Queue<E> implements AbstractQueue<E> {
     // Using Array
     private E[] elements;
     private int size;
+    private static final int CAPACITY_DEFAULT = 10;
 
     public Queue() {
-        this.elements = (E[]) new Object[999];
+        this.elements = (E[]) new Object[CAPACITY_DEFAULT];
     }
 
     @Override
