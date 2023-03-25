@@ -59,7 +59,13 @@ public class Stack<E> implements AbstractStack<E> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        if (this.size == 0) {
+            return true;
+        }
+
+        else {
+            return false;
+        }
     }
 
     @Override
