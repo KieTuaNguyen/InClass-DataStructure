@@ -11,13 +11,26 @@ public class Main {
         stack.push("GDD210002");
         stack.push("Assignment 1");
         stack.push("Data Structure");
+        stack.push("Stack");
 
         // Accessing the elements in Stack:
         // Displaying the size of Stack
         System.out.println("   Size of Stack: " + stack.size());
-        // Displaying the Stack
-        System.out.println("   Stack: " + stack);
+        // Displaying the Stack before pop
+        System.out.println("   Stack before pop: " + stack);
         // Displaying the top element of Stack
         System.out.println("   Top element of Stack: " + stack.peek());
+        System.out.println(
+                "-----------------------------------------------------------------------------------------------");
+        // Removing the elements using pop() method
+        System.out.println("   Popped element: " + stack.pop());
+        // Displaying the size of Stack
+        System.out.println("   Size of Stack: " + stack.size());
+        // Displaying the Stack after pop
+        System.out.println("   Stack after pop: " + stack);
+        // Displaying the top element of Stack
+        System.out.println("   Top element of Stack: " + stack.peek());
+        System.out.println(
+                "-----------------------------------------------------------------------------------------------");
     }
 }
