@@ -6,7 +6,7 @@ public class Main {
     }
 
     public static int sumOfSquares(int x, int y) {
-        return square(x + y);
+        return square(x) + square(y);
     }
 
     public static void main(String[] args) {
