@@ -67,12 +67,30 @@ public class Queue<E> implements AbstractQueue<E> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        if (this.size == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new Iterator<E>() {
+            private Node<E> current = head;
+
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public E next() {
+                E element = current.element;
+                current = current.next;
+                return element;
+            }
+        };
     }
 
     @Override
