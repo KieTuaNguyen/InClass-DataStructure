@@ -5,8 +5,25 @@ import java.io.*;
 import java.util.*;
 
 public class Methods {
-  public static Queue<String> queue = new Queue<>();
-  public static Stack<String> stack = new Stack<>();
+  public static Queue<String> queue;
+  public static Stack<String> stack;
+  public static LinkedList<String> messageList = new LinkedList<>();
+
+  public static void setQueue(Queue<String> q) {
+    queue = q;
+  }
+
+  public static void setStack(Stack<String> s) {
+    stack = s;
+  }
+
+  public static void Menu() {
+    System.out.println("1. Enter message");
+    System.out.println("2. Print the newest conversation");
+    System.out.println("3. Print all conversations");
+    System.out.println("4. Export all conversations to a file");
+    System.out.println("5. Exit");
+  }
 
   public static String[] EnterMessage(BufferedReader reader) throws IOException {
     String[] message = reader.readLine().split("//");
@@ -20,10 +37,11 @@ public class Methods {
         break;
       }
     }
+    messageList.addLast(Arrays.toString(message));
     return message;
   }
 
-  public static void Transfer(String[] message) {
+  public static void Transfer(String[] message, Queue<String> queue) {
     int i = 0;
     while (i < message.length) {
       queue.enqueue(message[i]);
@@ -33,7 +51,7 @@ public class Methods {
     System.out.println("Length of message: " + message.length);
   }
 
-  public static void Process() {
+  public static void Process(Queue<String> queue, Stack<String> stack) {
     String character;
     while (!queue.isEmpty()) {
       character = queue.peek();
@@ -42,19 +60,38 @@ public class Methods {
     }
   }
 
-  public static void Print() {
-    String destination;
-    System.out.println("Received message: ");
+  public static void PrintNewestMessage(Stack<String> stack) {
+    String message;
+    System.out.println("Received messages: ");
     while (!stack.isEmpty()) {
-      destination = stack.peek();
-      System.out.println(destination + ". ");
+      message = stack.peek();
+      System.out.println(message + ". ");
       stack.pop();
     }
+    System.out.println();
   }
 
-  public static void Menu() {
-    System.out.println("1. Enter message");
-    System.out.println("2. Print message");
-    System.out.println("3. Exit");
+  public static void PrintAllMessages() {
+    System.out.println("All messages received:");
+    messageList.forEach(System.out::println);
+  }
+
+  public static void ExportAllMessages() {
+    try {
+      File file = new File("src/history/history.txt");
+      FileWriter writer = new FileWriter(file);
+
+      messageList.forEach(message -> {
+        try {
+          writer.write(message + "\n");
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      });
+      writer.close();
+      System.out.println("All messages exported to file: " + file.getAbsolutePath());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }
