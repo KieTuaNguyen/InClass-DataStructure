@@ -39,11 +39,11 @@ public class Methods {
 
       while (i < message.length) {
         if (message[i].length() <= 0) {
-          System.out.println("Warning: Empty message ignored.");
+          System.out.println("    Warning: Empty message ignored.");
           validMessage = false;
           break;
         } else if (message[i].length() >= 250) {
-          System.out.println("Warning: Message exceeds 250 characters and will be truncated.");
+          System.out.println("    Warning: Message exceeds 250 characters and will be truncated.");
           validMessage = false;
           break;
         }
@@ -75,17 +75,17 @@ public class Methods {
 
   public static void PrintNewestMessage(Stack<String> stack) {
     String message;
-    System.out.println("Received messages: ");
+    System.out.println("    Received messages: ");
     while (!stack.isEmpty()) {
       message = stack.peek();
-      System.out.println(message + ". ");
+      System.out.println("    " + message + ". ");
       stack.pop();
     }
     System.out.println();
   }
 
   public static void PrintAllMessages() {
-    System.out.println("All messages received:");
+    System.out.println("    All messages received:");
     messageList.forEach(System.out::println);
   }
 

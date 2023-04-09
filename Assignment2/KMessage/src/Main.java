@@ -14,14 +14,22 @@ public class Main {
         int choice = 0;
         do {
             try {
-                choice = Integer.parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
+                String input = new BufferedReader(new InputStreamReader(System.in)).readLine();
+                if (input.isEmpty()) {
+                    System.out.println("Invalid choice! Please enter a number.");
+                    continue;
+                }
+                choice = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid choice! Please enter a number.");
+                continue;
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Invalid choice! Please enter a number.");
                 continue;
             }
             switch (choice) {
                 case 1:
-                    System.out.println("Enter message (End with //)");
+                    System.out.println("    Enter message (End with //)");
                     try {
                         String[] message = Methods.EnterMessage(new BufferedReader(new InputStreamReader(System.in)));
                         double beginTime = System.currentTimeMillis();
@@ -54,7 +62,7 @@ public class Main {
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Invalid choice!");
+                    System.out.println("Invalid choice! Please enter a number.");
                     break;
             }
         } while (choice != 5);
