@@ -88,10 +88,16 @@ public class Methods {
 
   public static void PrintAllMessages() {
     System.out.println("    All messages received:");
+    // Loop over each message in the messageList variable
+    // The loop variable is a String type and it's named message
     for (String message : messageList) {
+      // Split the message using the "|" character as the delimiter and store the
+      // resulting parts in an array
       String[] parts = message.split("\\|");
       String msg = parts[0].trim();
       String time = "";
+      // If the message has at least two parts, get the second part and remove any
+      // leading or trailing spaces
       if (parts.length >= 2) {
         time = parts[1].trim();
       }
@@ -103,14 +109,12 @@ public class Methods {
     try {
       File file = new File("src/conversation/history.txt");
       FileWriter writer = new FileWriter(file);
-
-      messageList.forEach(message -> {
-        try {
-          writer.write(message + "\n");
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      });
+      // Loop over each message in the messageList and write it to the file
+      for (String message : messageList) {
+        writer.write(message + "\n");
+      }
+      // Close the FileWriter object to flush any remaining data and release any
+      // system resources
       writer.close();
       System.out.println("All messages exported to file: " + file.getAbsolutePath());
     } catch (IOException e) {
