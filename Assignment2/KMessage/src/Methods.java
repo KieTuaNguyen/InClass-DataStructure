@@ -24,7 +24,8 @@ public class Methods {
     System.out.println("|2| Print the newest conversation      |");
     System.out.println("|3| Print all conversations            |");
     System.out.println("|4| Export all conversations to a file |");
-    System.out.println("|5| Exit                               |");
+    System.out.println("|5| Delete the newest conversation     |");
+    System.out.println("|6| Exit                               |");
     System.out.println("----------------------------------------");
     System.out.print("    Enter your choice: ");
   }
@@ -120,5 +121,11 @@ public class Methods {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public static void DeleteNewestMessage() {
+    // Remove the last message from the messageList
+    messageList.removeLast();
+    System.out.println("    Newest message deleted!");
   }
 }

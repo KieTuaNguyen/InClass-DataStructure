@@ -56,6 +56,11 @@ public class Main {
                     Methods.Menu();
                     break;
                 case 5:
+                    Methods.DeleteNewestMessage();
+                    Methods.PrintAllMessages();
+                    Methods.Menu();
+                    break;
+                case 6:
                     System.out.println("----------------------------------------");
                     System.out.println("    KMessage                      v1.0.0");
                     System.out.println("----------------------------------------");
@@ -65,6 +70,6 @@ public class Main {
                     System.out.println("Invalid choice! Please enter a number.");
                     break;
             }
-        } while (choice != 5);
+        } while (choice != 6);
     }
 }
