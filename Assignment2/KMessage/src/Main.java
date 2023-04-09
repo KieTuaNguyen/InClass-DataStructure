@@ -61,6 +61,10 @@ public class Main {
                     Methods.Menu();
                     break;
                 case 6:
+                    Methods.Statistics();
+                    Methods.Menu();
+                    break;
+                case 7:
                     System.out.println("----------------------------------------");
                     System.out.println("    KMessage                      v1.0.0");
                     System.out.println("----------------------------------------");
@@ -70,6 +74,6 @@ public class Main {
                     System.out.println("Invalid choice! Please enter a number.");
                     break;
             }
-        } while (choice != 6);
+        } while (choice != 7);
     }
 }

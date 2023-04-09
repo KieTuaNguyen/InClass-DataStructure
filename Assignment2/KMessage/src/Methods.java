@@ -25,7 +25,8 @@ public class Methods {
     System.out.println("|3| Print all conversations            |");
     System.out.println("|4| Export all conversations to a file |");
     System.out.println("|5| Delete the newest conversation     |");
-    System.out.println("|6| Exit                               |");
+    System.out.println("|6| Statistics                         |");
+    System.out.println("|7| Exit                               |");
     System.out.println("----------------------------------------");
     System.out.print("    Enter your choice: ");
   }
@@ -127,5 +128,17 @@ public class Methods {
     // Remove the last message from the messageList
     messageList.removeLast();
     System.out.println("    Newest message deleted!");
+  }
+
+  public static void Statistics() {
+    System.out.println("    Number of conversations received: " + messageList.size());
+    System.out.println("    Number of characters received: " + messageList.toString().length());
+    int totalLength = 0;
+    for (String message : messageList) {
+      totalLength += message.length();
+    }
+    double averageLength = (double) totalLength / messageList.size();
+    long roundedAverageLength = Math.round(averageLength);
+    System.out.println("    Average length of messages: " + roundedAverageLength);
   }
 }
