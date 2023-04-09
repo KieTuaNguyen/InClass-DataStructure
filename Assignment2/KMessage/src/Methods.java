@@ -81,7 +81,7 @@ public class Methods {
     System.out.println("    Received messages: ");
     while (!stack.isEmpty()) {
       message = stack.peek();
-      System.out.println(message);
+      System.out.println(message + ". ");
       stack.pop();
     }
   }
