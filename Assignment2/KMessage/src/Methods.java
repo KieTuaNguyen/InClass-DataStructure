@@ -2,6 +2,7 @@ import implementations.Queue;
 import implementations.Stack;
 
 import java.io.*;
+import java.text.*;
 import java.util.*;
 
 public class Methods {
@@ -51,7 +52,9 @@ public class Methods {
       }
     }
 
-    messageList.addLast(Arrays.toString(message));
+    String timestamp = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date());
+    String messageWithTimestamp = "[" + timestamp + "] " + Arrays.toString(message);
+    messageList.addLast(messageWithTimestamp);
     return message;
   }
 
@@ -78,15 +81,22 @@ public class Methods {
     System.out.println("    Received messages: ");
     while (!stack.isEmpty()) {
       message = stack.peek();
-      System.out.println("    " + message + ". ");
+      System.out.println(message);
       stack.pop();
     }
-    System.out.println();
   }
 
   public static void PrintAllMessages() {
     System.out.println("    All messages received:");
-    messageList.forEach(System.out::println);
+    for (String message : messageList) {
+      String[] parts = message.split("\\|");
+      String msg = parts[0].trim();
+      String time = "";
+      if (parts.length >= 2) {
+        time = parts[1].trim();
+      }
+      System.out.println(msg + " " + time);
+    }
   }
 
   public static void ExportAllMessages() {
