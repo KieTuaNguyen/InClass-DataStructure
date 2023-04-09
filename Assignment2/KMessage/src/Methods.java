@@ -29,17 +29,28 @@ public class Methods {
   }
 
   public static String[] EnterMessage(BufferedReader reader) throws IOException {
-    String[] message = reader.readLine().split("//");
-    int i = 0;
-    while (i < message.length) {
-      if (message[i].length() <= 0) {
-        System.out.println("Warning: Empty message ignored.");
-      } else if (message[i].length() >= 250) {
-        System.out.println("Warning: Message exceeds 250 characters and will be truncated.");
-      } else {
-        break;
+    boolean validMessage = false;
+    String[] message = null;
+
+    while (!validMessage) {
+      message = reader.readLine().split("//");
+      int i = 0;
+      validMessage = true;
+
+      while (i < message.length) {
+        if (message[i].length() <= 0) {
+          System.out.println("Warning: Empty message ignored.");
+          validMessage = false;
+          break;
+        } else if (message[i].length() >= 250) {
+          System.out.println("Warning: Message exceeds 250 characters and will be truncated.");
+          validMessage = false;
+          break;
+        }
+        i++;
       }
     }
+
     messageList.addLast(Arrays.toString(message));
     return message;
   }
@@ -51,7 +62,6 @@ public class Methods {
       i++;
     }
     System.out.println("    Message transferred to queue!");
-    System.out.println("    Length of message: " + message.length);
   }
 
   public static void Process(Queue<String> queue, Stack<String> stack) {
