@@ -8,8 +8,9 @@ public class Main {
     public static Stack<String> stack = new Stack<>();
 
     public static void main(String[] args) {
+        System.out.println("----------------------------------------");
+        System.out.println("    KMessage                      v1.0.0");
         Methods.Menu();
-        System.out.println("Enter your choice: ");
         int choice = 0;
         do {
             try {
@@ -28,21 +29,28 @@ public class Main {
                         Methods.Process(queue, stack);
                         double endTime = System.currentTimeMillis();
                         double time = endTime - beginTime;
-                        System.out.println(" |Time: " + time + "ms");
+                        System.out.println("|*| Time: " + time + "ms");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    Methods.Menu();
                     break;
                 case 2:
                     Methods.PrintNewestMessage(stack);
+                    Methods.Menu();
                     break;
                 case 3:
                     Methods.PrintAllMessages();
+                    Methods.Menu();
                     break;
                 case 4:
                     Methods.ExportAllMessages();
+                    Methods.Menu();
                     break;
                 case 5:
+                    System.out.println("----------------------------------------");
+                    System.out.println("    KMessage                      v1.0.0");
+                    System.out.println("----------------------------------------");
                     System.exit(0);
                     break;
                 default:

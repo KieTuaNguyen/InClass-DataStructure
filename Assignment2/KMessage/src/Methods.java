@@ -18,11 +18,14 @@ public class Methods {
   }
 
   public static void Menu() {
-    System.out.println("1. Enter message");
-    System.out.println("2. Print the newest conversation");
-    System.out.println("3. Print all conversations");
-    System.out.println("4. Export all conversations to a file");
-    System.out.println("5. Exit");
+    System.out.println("----------------------------------------");
+    System.out.println("|1| Enter message                      |");
+    System.out.println("|2| Print the newest conversation      |");
+    System.out.println("|3| Print all conversations            |");
+    System.out.println("|4| Export all conversations to a file |");
+    System.out.println("|5| Exit                               |");
+    System.out.println("----------------------------------------");
+    System.out.print("    Enter your choice: ");
   }
 
   public static String[] EnterMessage(BufferedReader reader) throws IOException {
@@ -30,9 +33,9 @@ public class Methods {
     int i = 0;
     while (i < message.length) {
       if (message[i].length() <= 0) {
-        throw new IllegalArgumentException("Warning: Empty message ignored.");
+        System.out.println("Warning: Empty message ignored.");
       } else if (message[i].length() >= 250) {
-        throw new IllegalArgumentException("Warning: Message exceeds 250 characters and will be truncated.");
+        System.out.println("Warning: Message exceeds 250 characters and will be truncated.");
       } else {
         break;
       }
@@ -47,8 +50,8 @@ public class Methods {
       queue.enqueue(message[i]);
       i++;
     }
-    System.out.println("Message transferred to queue!");
-    System.out.println("Length of message: " + message.length);
+    System.out.println("    Message transferred to queue!");
+    System.out.println("    Length of message: " + message.length);
   }
 
   public static void Process(Queue<String> queue, Stack<String> stack) {
@@ -78,7 +81,7 @@ public class Methods {
 
   public static void ExportAllMessages() {
     try {
-      File file = new File("src/history/history.txt");
+      File file = new File("src/conversation/history.txt");
       FileWriter writer = new FileWriter(file);
 
       messageList.forEach(message -> {
