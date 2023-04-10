@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("----------------------------------------");
-        System.out.println("    KMessage                      v1.0.0");
+        System.out.println("    KMessage                      v4.9.0");
         Methods.Menu();
         int choice = 0;
         do {
@@ -29,9 +29,13 @@ public class Main {
             }
             switch (choice) {
                 case 1:
+                    Methods.ImportMessages();
+                    Methods.Menu();
+                    break;
+                case 2:
                     System.out.println("    Enter message (End with //)");
                     try {
-                        String[] message = Methods.EnterMessage(new BufferedReader(new InputStreamReader(System.in)));
+                        String[] message = Methods.LeaveMessage(new BufferedReader(new InputStreamReader(System.in)));
                         double beginTime = System.currentTimeMillis();
                         Methods.Transfer(message, queue);
                         Methods.Process(queue, stack);
@@ -43,30 +47,30 @@ public class Main {
                     }
                     Methods.Menu();
                     break;
-                case 2:
+                case 3:
                     Methods.PrintNewestMessage(stack);
                     Methods.Menu();
                     break;
-                case 3:
+                case 4:
                     Methods.PrintAllMessages();
                     Methods.Menu();
                     break;
-                case 4:
+                case 5:
                     Methods.ExportAllMessages();
                     Methods.Menu();
                     break;
-                case 5:
+                case 6:
                     Methods.DeleteNewestMessage();
                     Methods.PrintAllMessages();
                     Methods.Menu();
                     break;
-                case 6:
+                case 7:
                     Methods.Statistics();
                     Methods.Menu();
                     break;
-                case 7:
+                case 8:
                     System.out.println("----------------------------------------");
-                    System.out.println("    KMessage                      v1.0.0");
+                    System.out.println("    KMessage                      v4.9.0");
                     System.out.println("----------------------------------------");
                     System.exit(0);
                     break;
@@ -74,6 +78,6 @@ public class Main {
                     System.out.println("Invalid choice! Please enter a number.");
                     break;
             }
-        } while (choice != 7);
+        } while (choice != 8);
     }
 }

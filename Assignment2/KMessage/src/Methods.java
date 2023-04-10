@@ -20,18 +20,19 @@ public class Methods {
 
   public static void Menu() {
     System.out.println("----------------------------------------");
-    System.out.println("|1| Enter message                      |");
-    System.out.println("|2| Print the newest conversation      |");
-    System.out.println("|3| Print all conversations            |");
-    System.out.println("|4| Export all conversations to a file |");
-    System.out.println("|5| Delete the newest conversation     |");
-    System.out.println("|6| Statistics                         |");
-    System.out.println("|7| Exit                               |");
+    System.out.println("|1| Import the conversation from a file|");
+    System.out.println("|2| Leave the messages                 |");
+    System.out.println("|3| Retrieve the newest conversation   |");
+    System.out.println("|4| Retrieve all conversations         |");
+    System.out.println("|5| Export all conversations to a file |");
+    System.out.println("|6| Delete the newest conversation     |");
+    System.out.println("|7| Statistics                         |");
+    System.out.println("|8| Exit                               |");
     System.out.println("----------------------------------------");
-    System.out.print("    Enter your choice: ");
+    System.out.print(" => Enter your choice: ");
   }
 
-  public static String[] EnterMessage(BufferedReader reader) throws IOException {
+  public static String[] LeaveMessage(BufferedReader reader) throws IOException {
     boolean validMessage = false;
     String[] message = null;
 
@@ -104,6 +105,36 @@ public class Methods {
         time = parts[1].trim();
       }
       System.out.println(msg + " " + time);
+    }
+  }
+
+  private static boolean isImported = false;
+
+  public static void ImportMessages() {
+    if (isImported) {
+      System.out.println("    Warning: File already imported.");
+      return;
+    }
+
+    try {
+      File file = new File("src/conversation/history.txt");
+      Scanner scanner = new Scanner(file);
+      // Loop over each line in the file
+      while (scanner.hasNextLine()) {
+        // Read the next line and store it in the message variable
+        String message = scanner.nextLine();
+        // Add the message to the messageList
+        messageList.addLast(message);
+      }
+      // Close the Scanner object to flush any remaining data and release any system
+      // resources
+      scanner.close();
+      System.out.println("All messages imported from file: " + file.getAbsolutePath());
+      isImported = true; // set to true after successful import
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
