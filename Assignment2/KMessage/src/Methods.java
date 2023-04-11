@@ -136,9 +136,9 @@ public class Methods {
       System.out.println("All messages imported from file: " + file.getAbsolutePath());
       isImported = true; // set to true after successful import
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println("    Warning: " + e.getMessage());
+    } catch (Exception e) {
+      System.out.println("    Warning: " + e.getMessage());
     }
   }
 
@@ -154,8 +154,8 @@ public class Methods {
       // system resources
       writer.close();
       System.out.println("All messages exported to file: " + file.getAbsolutePath());
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (Exception e) {
+      System.out.println("    Warning: " + e.getMessage());
     }
   }
 
