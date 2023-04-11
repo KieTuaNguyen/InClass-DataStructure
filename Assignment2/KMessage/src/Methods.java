@@ -162,7 +162,7 @@ public class Methods {
   public static void DeleteNewestMessage() {
     try {
       if (messageList.size() == 0) {
-        throw new Exception("    No messages left.");
+        throw new Exception("No messages left.");
       } else {
         messageList.removeLast();
         System.out.println("    Newest message deleted.");
@@ -173,13 +173,21 @@ public class Methods {
   }
 
   public static void Statistics() {
-    System.out.println("    Number of conversations received: " + messageList.size());
-    int totalLength = 0;
-    for (String message : messageList) {
-      totalLength += message.length();
+    try {
+      if (messageList.size() == 0) {
+        throw new Exception("No messages found.");
+      } else {
+        System.out.println("    Number of conversations received: " + messageList.size());
+        int totalLength = 0;
+        for (String message : messageList) {
+          totalLength += message.length();
+        }
+        double averageLength = (double) totalLength / messageList.size();
+        long roundedAverageLength = Math.round(averageLength);
+        System.out.println("    Average length of messages: " + roundedAverageLength);
+      }
+    } catch (Exception e) {
+      System.out.println("    Warning: " + e.getMessage());
     }
-    double averageLength = (double) totalLength / messageList.size();
-    long roundedAverageLength = Math.round(averageLength);
-    System.out.println("    Average length of messages: " + roundedAverageLength);
   }
 }
