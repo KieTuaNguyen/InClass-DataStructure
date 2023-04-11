@@ -71,7 +71,7 @@ public class Methods {
       queue.enqueue(message[i]);
       i++;
     }
-    System.out.println("    Message transferred to queue!");
+    System.out.println("    Message transferred to queue.");
   }
 
   public static void Process(Queue<String> queue, Stack<String> stack) {
@@ -160,11 +160,15 @@ public class Methods {
   }
 
   public static void DeleteNewestMessage() {
-    if (messageList.size() == 0) {
-      System.out.println("    Warning: No messages left.");
-    } else {
-      messageList.removeLast();
-      System.out.println("    Newest message deleted!");
+    try {
+      if (messageList.size() == 0) {
+        throw new Exception("    No messages left.");
+      } else {
+        messageList.removeLast();
+        System.out.println("    Newest message deleted.");
+      }
+    } catch (Exception e) {
+      System.out.println("    Warning: " + e.getMessage());
     }
   }
 
