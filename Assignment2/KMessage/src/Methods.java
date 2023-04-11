@@ -156,9 +156,12 @@ public class Methods {
   }
 
   public static void DeleteNewestMessage() {
-    // Remove the last message from the messageList
-    messageList.removeLast();
-    System.out.println("    Newest message deleted!");
+    if (messageList.size() == 0) {
+      System.out.println("    Warning: No messages left.");
+    } else {
+      messageList.removeLast();
+      System.out.println("    Newest message deleted!");
+    }
   }
 
   public static void Statistics() {
