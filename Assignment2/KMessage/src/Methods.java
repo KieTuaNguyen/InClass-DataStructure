@@ -37,21 +37,25 @@ public class Methods {
     String[] message = null;
 
     while (!validMessage) {
-      message = reader.readLine().split("//");
-      int i = 0;
-      validMessage = true;
-
-      while (i < message.length) {
-        if (message[i].length() <= 0) {
-          System.out.println("    Warning: Empty message ignored.");
-          validMessage = false;
-          break;
-        } else if (message[i].length() >= 250) {
-          System.out.println("    Warning: Message exceeds 250 characters and will be truncated.");
-          validMessage = false;
-          break;
+      try {
+        String input = reader.readLine();
+        if (input.length() >= 250) {
+          throw new IllegalArgumentException("Message exceeds 250 characters");
         }
-        i++;
+        message = input.split("//");
+        int i = 0;
+        validMessage = true;
+
+        while (i < message.length) {
+          if (message[i].length() <= 0) {
+            System.out.println("    Warning: Empty message ignored.");
+            validMessage = false;
+            break;
+          }
+          i++;
+        }
+      } catch (IllegalArgumentException e) {
+        System.out.println("    Warning: " + e.getMessage() + " and will be truncated.");
       }
     }
 
