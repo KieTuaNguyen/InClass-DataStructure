@@ -163,7 +163,6 @@ public class Methods {
 
   public static void Statistics() {
     System.out.println("    Number of conversations received: " + messageList.size());
-    System.out.println("    Number of characters received: " + messageList.toString().length());
     int totalLength = 0;
     for (String message : messageList) {
       totalLength += message.length();
