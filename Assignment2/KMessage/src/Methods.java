@@ -86,7 +86,7 @@ public class Methods {
   public static void PrintNewestMessage(Stack<String> stack) {
     try {
       if (stack.isEmpty()) {
-        throw new Exception("No messages found.");
+        throw new Exception("No newest message found.");
       } else {
         String message;
         System.out.println("    Received messages: ");
@@ -102,21 +102,29 @@ public class Methods {
   }
 
   public static void PrintAllMessages() {
-    System.out.println("    All messages received:");
-    // Loop over each message in the messageList variable
-    // The loop variable is a String type and it's named message
-    for (String message : messageList) {
-      // Split the message using the "|" character as the delimiter and store the
-      // resulting parts in an array
-      String[] parts = message.split("\\|");
-      String msg = parts[0].trim();
-      String time = "";
-      // If the message has at least two parts, get the second part and remove any
-      // leading or trailing spaces
-      if (parts.length >= 2) {
-        time = parts[1].trim();
+    try {
+      if (messageList.size() == 0) {
+        throw new Exception("No messages found.");
+      } else {
+        System.out.println("    All messages received:");
+        // Loop over each message in the messageList variable
+        // The loop variable is a String type and it's named message
+        for (String message : messageList) {
+          // Split the message using the "|" character as the delimiter and store the
+          // resulting parts in an array
+          String[] parts = message.split("\\|");
+          String msg = parts[0].trim();
+          String time = "";
+          // If the message has at least two parts, get the second part and remove any
+          // leading or trailing spaces
+          if (parts.length >= 2) {
+            time = parts[1].trim();
+          }
+          System.out.println(msg + " " + time);
+        }
       }
-      System.out.println(msg + " " + time);
+    } catch (Exception e) {
+      System.out.println("    Warning: " + e.getMessage());
     }
   }
 
