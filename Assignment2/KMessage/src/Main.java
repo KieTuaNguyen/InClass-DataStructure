@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("----------------------------------------");
-        System.out.println("    KMessage                      v4.9.0");
+        System.out.println("    KMessage                      v5.8.0");
         Methods.Menu();
         int choice = 0;
         do {
@@ -29,13 +29,14 @@ public class Main {
             }
             switch (choice) {
                 case 1:
-                    Methods.ImportMessages();
+                    Methods.ImportMessages(stack);
                     Methods.Menu();
                     break;
                 case 2:
                     System.out.println("    Enter message (End with //)");
                     try {
-                        String[] message = Methods.LeaveMessage(new BufferedReader(new InputStreamReader(System.in)));
+                        String[] message = Methods.LeaveMessage(new BufferedReader(new InputStreamReader(System.in)),
+                                stack);
                         double beginTime = System.currentTimeMillis();
                         Methods.Transfer(message, queue);
                         Methods.Process(queue, stack);
@@ -52,25 +53,25 @@ public class Main {
                     Methods.Menu();
                     break;
                 case 4:
-                    Methods.PrintAllMessages();
+                    Methods.PrintAllMessages(stack);
                     Methods.Menu();
                     break;
                 case 5:
-                    Methods.ExportAllMessages();
+                    Methods.ExportAllMessages(stack);
                     Methods.Menu();
                     break;
                 case 6:
-                    Methods.DeleteNewestMessage();
-                    Methods.PrintAllMessages();
+                    Methods.DeleteNewestMessage(stack);
+                    Methods.PrintAllMessages(stack);
                     Methods.Menu();
                     break;
                 case 7:
-                    Methods.Statistics();
+                    Methods.Statistics(stack);
                     Methods.Menu();
                     break;
                 case 8:
                     System.out.println("----------------------------------------");
-                    System.out.println("    KMessage                      v4.9.0");
+                    System.out.println("    KMessage                      v5.8.0");
                     System.out.println("----------------------------------------");
                     System.exit(0);
                     break;

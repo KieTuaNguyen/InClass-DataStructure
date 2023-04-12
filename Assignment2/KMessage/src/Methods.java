@@ -8,7 +8,6 @@ import java.util.*;
 public class Methods {
   public static Queue<String> queue;
   public static Stack<String> stack;
-  public static LinkedList<String> messageList = new LinkedList<>();
 
   public static void setQueue(Queue<String> q) {
     queue = q;
@@ -22,17 +21,17 @@ public class Methods {
     System.out.println("----------------------------------------");
     System.out.println("|1| Import the conversation from a file|");
     System.out.println("|2| Leave the messages                 |");
-    System.out.println("|3| Retrieve the newest conversation   |");
+    System.out.println("|3| Retrieve the newest message        |");
     System.out.println("|4| Retrieve all conversations         |");
     System.out.println("|5| Export all conversations to a file |");
-    System.out.println("|6| Delete the newest conversation     |");
+    System.out.println("|6| Delete the newest message          |");
     System.out.println("|7| Statistics                         |");
     System.out.println("|8| Exit                               |");
     System.out.println("----------------------------------------");
     System.out.print(" => Enter your choice: ");
   }
 
-  public static String[] LeaveMessage(BufferedReader reader) throws IOException {
+  public static String[] LeaveMessage(BufferedReader reader, Stack<String> stack) throws IOException {
     boolean validMessage = false;
     String[] message = null;
 
@@ -40,35 +39,35 @@ public class Methods {
       try {
         String input = reader.readLine();
         if (input.length() >= 250) {
-          throw new IllegalArgumentException("Message exceeds 250 characters");
+          throw new Exception("Message exceeds 250 characters");
         }
+
         message = input.split("//");
         int i = 0;
         validMessage = true;
 
-        while (i < message.length) {
-          if (message[i].length() <= 0) {
-            System.out.println("    Warning: Empty message ignored.");
+        for (String m : message) {
+          if (m.length() <= 0) {
+            System.out.println(" Warning: Empty message ignored.");
             validMessage = false;
             break;
           }
-          i++;
         }
-      } catch (IllegalArgumentException e) {
-        System.out.println("    Warning: " + e.getMessage() + " and will be truncated.");
+      } catch (Exception e) {
+        System.out.println(" Warning: " + e.getMessage() + " and will be truncated.");
       }
     }
-
-    String timestamp = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date());
-    String messageWithTimestamp = "[" + timestamp + "] " + Arrays.toString(message);
-    messageList.addLast(messageWithTimestamp);
     return message;
   }
 
   public static void Transfer(String[] message, Queue<String> queue) {
+    SimpleDateFormat formatter = new SimpleDateFormat("[MM/dd/yyyy HH:mm:ss]");
+    Date date = new Date();
+    String timestamp = formatter.format(date);
+
     int i = 0;
     while (i < message.length) {
-      queue.enqueue(message[i]);
+      queue.enqueue(timestamp + " " + message[i]);
       i++;
     }
     System.out.println("    Message transferred to queue.");
@@ -88,39 +87,22 @@ public class Methods {
       if (stack.isEmpty()) {
         throw new Exception("No newest message found.");
       } else {
-        String message;
-        System.out.println("    Received messages: ");
-        while (!stack.isEmpty()) {
-          message = stack.peek();
-          System.out.println(message + ". ");
-          stack.pop();
-        }
+        String message = stack.peek();
+        System.out.println("    The newest message: " + message);
       }
     } catch (Exception e) {
       System.out.println("    Warning: " + e.getMessage());
     }
   }
 
-  public static void PrintAllMessages() {
+  public static void PrintAllMessages(Stack<String> stack) {
     try {
-      if (messageList.size() == 0) {
+      if (stack.size() == 0) {
         throw new Exception("No messages found.");
       } else {
         System.out.println("    All messages received:");
-        // Loop over each message in the messageList variable
-        // The loop variable is a String type and it's named message
-        for (String message : messageList) {
-          // Split the message using the "|" character as the delimiter and store the
-          // resulting parts in an array
-          String[] parts = message.split("\\|");
-          String msg = parts[0].trim();
-          String time = "";
-          // If the message has at least two parts, get the second part and remove any
-          // leading or trailing spaces
-          if (parts.length >= 2) {
-            time = parts[1].trim();
-          }
-          System.out.println(msg + " " + time);
+        for (String message : stack) {
+          System.out.println("    " + message);
         }
       }
     } catch (Exception e) {
@@ -130,7 +112,7 @@ public class Methods {
 
   private static boolean isImported = false;
 
-  public static void ImportMessages() {
+  public static void ImportMessages(Stack<String> stack) {
     if (isImported) {
       System.out.println("    Warning: File already imported.");
       return;
@@ -141,10 +123,8 @@ public class Methods {
       Scanner scanner = new Scanner(file);
       // Loop over each line in the file
       while (scanner.hasNextLine()) {
-        // Read the next line and store it in the message variable
         String message = scanner.nextLine();
-        // Add the message to the messageList
-        messageList.addLast(message);
+        stack.push(message);
       }
       // Close the Scanner object to flush any remaining data and release any system
       // resources
@@ -158,13 +138,13 @@ public class Methods {
     }
   }
 
-  public static void ExportAllMessages() {
+  public static void ExportAllMessages(Stack<String> stack) {
     try {
       File file = new File("src/conversation/history.txt");
       FileWriter writer = new FileWriter(file);
       // Loop over each message in the messageList and write it to the file
-      for (String message : messageList) {
-        writer.write(message + "\n");
+      for (String message : stack) {
+        writer.write(message + System.lineSeparator());
       }
       // Close the FileWriter object to flush any remaining data and release any
       // system resources
@@ -175,12 +155,12 @@ public class Methods {
     }
   }
 
-  public static void DeleteNewestMessage() {
+  public static void DeleteNewestMessage(Stack<String> stack) {
     try {
-      if (messageList.size() == 0) {
+      if (stack.size() == 0) {
         throw new Exception("No messages left.");
       } else {
-        messageList.removeLast();
+        stack.pop();
         System.out.println("    Newest message deleted.");
       }
     } catch (Exception e) {
@@ -188,17 +168,17 @@ public class Methods {
     }
   }
 
-  public static void Statistics() {
+  public static void Statistics(Stack<String> stack) {
     try {
-      if (messageList.size() == 0) {
+      if (stack.size() == 0) {
         throw new Exception("No messages found.");
       } else {
-        System.out.println("    Number of conversations received: " + messageList.size());
+        System.out.println("    Number of conversations received: " + stack.size());
         int totalLength = 0;
-        for (String message : messageList) {
+        for (String message : stack) {
           totalLength += message.length();
         }
-        double averageLength = (double) totalLength / messageList.size();
+        double averageLength = (double) totalLength / stack.size();
         long roundedAverageLength = Math.round(averageLength);
         System.out.println("    Average length of messages: " + roundedAverageLength);
       }
