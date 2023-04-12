@@ -84,12 +84,20 @@ public class Methods {
   }
 
   public static void PrintNewestMessage(Stack<String> stack) {
-    String message;
-    System.out.println("    Received messages: ");
-    while (!stack.isEmpty()) {
-      message = stack.peek();
-      System.out.println(message + ". ");
-      stack.pop();
+    try {
+      if (stack.isEmpty()) {
+        throw new Exception("No messages found.");
+      } else {
+        String message;
+        System.out.println("    Received messages: ");
+        while (!stack.isEmpty()) {
+          message = stack.peek();
+          System.out.println(message + ". ");
+          stack.pop();
+        }
+      }
+    } catch (Exception e) {
+      System.out.println("    Warning: " + e.getMessage());
     }
   }
 
