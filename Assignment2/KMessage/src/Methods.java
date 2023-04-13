@@ -142,7 +142,7 @@ public class Methods {
     try {
       File file = new File("src/conversation/history.txt");
       FileWriter writer = new FileWriter(file);
-      // Loop over each message in the messageList and write it to the file
+      // Loop over each message in the stack and write it to the file
       for (String message : stack) {
         writer.write(message + System.lineSeparator());
       }
