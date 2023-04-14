@@ -35,8 +35,7 @@ public class Main {
                 case 2:
                     System.out.println("    Enter message (End with //)");
                     try {
-                        String[] message = Methods.LeaveMessage(new BufferedReader(new InputStreamReader(System.in)),
-                                stack);
+                        String[] message = Methods.LeaveMessage(new BufferedReader(new InputStreamReader(System.in)));
                         double beginTime = System.currentTimeMillis();
                         Methods.Transfer(message, queue);
                         Methods.Process(queue, stack);

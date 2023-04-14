@@ -31,19 +31,19 @@ public class Methods {
     System.out.print(" => Enter your choice: ");
   }
 
-  public static String[] LeaveMessage(BufferedReader reader, Stack<String> stack) throws IOException {
+  public static String[] LeaveMessage(BufferedReader reader) throws IOException {
     boolean validMessage = false;
     String[] message = null;
 
     while (!validMessage) {
       try {
         String input = reader.readLine();
+        input = input.replaceAll("\\s+", "");
         if (input.length() >= 250) {
           throw new Exception("Message exceeds 250 characters");
         }
 
         message = input.split("//");
-        int i = 0;
         validMessage = true;
 
         for (String m : message) {
