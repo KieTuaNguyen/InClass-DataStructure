@@ -38,7 +38,9 @@ public class Methods {
     while (!validMessage) {
       try {
         String input = reader.readLine();
-        input = input.replaceAll("\\s+", "");
+        if (input.trim().isEmpty()) {
+          throw new Exception("Empty message");
+        }
         if (input.length() >= 250) {
           throw new Exception("Message exceeds 250 characters");
         }
@@ -47,7 +49,7 @@ public class Methods {
         validMessage = true;
 
         for (String m : message) {
-          if (m.length() <= 0) {
+          if (m.trim().isEmpty()) {
             System.out.println(" Warning: Empty message ignored.");
             validMessage = false;
             break;
